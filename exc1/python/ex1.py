@@ -1,27 +1,10 @@
 import pandas as pd
-
-def get_hashtags(tweet):
-    i = 0
-    hashtags = []
-    while i < len(tweet):
-        if tweet[i] == '#':
-            i += 1
-            hashtag = ""
-            while i < len(tweet):
-                if tweet[i].isalpha() or tweet[i].isnumeric():
-                    hashtag += tweet[i]
-                    i+=1
-                else:
-                    break
-            if len(hashtag) > 0:
-                hashtags.append(hashtag)
-        i+=1
-    return hashtags
-
+import re
 
 def extract_hashtags(dataframe):
     """Extracts the set of hashtags from a dataframe of tweets."""
-    hashtags_list = dataframe["tweet"].apply(get_hashtags).tolist()
+    g = lambda x: re.findall('#[A-Za-z0-9]*', x)
+    hashtags_list = dataframe["tweet"].apply(g).tolist()
     return set([word for tweet in hashtags_list for word in tweet])
 
 def main():

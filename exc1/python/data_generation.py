@@ -43,7 +43,7 @@ def get_tweets(n):
     return tweets
 
 def main():
-    tweets = get_tweets(2000)
+    tweets = get_tweets(40)
     data = []
     # header = "tweet,likes,retweets"
     header = "tweet"
