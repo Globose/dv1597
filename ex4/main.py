@@ -11,7 +11,7 @@ def distance(m1, m2, s1, s2):
     tot = (m1-m2)**2+(s1-s2)**2
     return round(tot**0.5,4)
 
-def step_1():
+def step_1(print=True):
     """Calculates mean and std for all people-images"""
     people = os.listdir(PATH_PEOPLE)
     people_dict = {}
@@ -38,17 +38,17 @@ def step_1():
         std = round(np.mean(std_list),4)
         people_dict[p] = (mean,std,mean_list, std_list)
 
-    # Prints the result
-    print("-----"*10)
-    print("Step 1")
-    print('{:<15s} {:<15s} {:<15s}'.format("Person", "Mean", "Standard deviation"))
-    for p in people_dict.items():
-        print('{:<15s} {:<15s} {:<15s}'.format(p[0], str(p[1][0]), str(p[1][1])))
-    print("-----"*10)
+    if print:
+        print("-----"*10)
+        print("Step 1")
+        print('{:<15s} {:<15s} {:<15s}'.format("Person", "Mean", "Standard deviation"))
+        for p in people_dict.items():
+            print('{:<15s} {:<15s} {:<15s}'.format(p[0], str(p[1][0]), str(p[1][1])))
+        print("-----"*10)
 
     return people_dict
 
-def step_2():
+def step_2(print=True):
     """Calculates mean and std for Test images"""
     test_imgs = os.listdir(PATH_TEST)
     for i,img_name in enumerate(test_imgs):
@@ -64,13 +64,13 @@ def step_2():
         std = round(np.std(array),4)
         test_imgs[i] = (img_name,mean,std)
 
-    # Prints result
-    print("-----"*10)
-    print("Step 2")
-    print('{:<15s} {:<15s} {:<15s}'.format("Image", "Mean", "Standard deviation"))
-    for t in test_imgs:
-        print('{:<15s} {:<15s} {:<15s}'.format(t[0], str(t[1]), str(t[2])))
-    print("-----"*10)
+    if print:
+        print("-----"*10)
+        print("Step 2")
+        print('{:<15s} {:<15s} {:<15s}'.format("Image", "Mean", "Standard deviation"))
+        for t in test_imgs:
+            print('{:<15s} {:<15s} {:<15s}'.format(t[0], str(t[1]), str(t[2])))
+        print("-----"*10)
     return test_imgs
 
 def step_3(people, test_imgs):
@@ -121,7 +121,7 @@ def plot(people):
     plt.show()
 
 if __name__ == '__main__':
-    people = step_1()
-    test_imgs = step_2()
+    people = step_1(print = False)
+    test_imgs = step_2(print = False)
     step_3(people, test_imgs)
     plot(people)
