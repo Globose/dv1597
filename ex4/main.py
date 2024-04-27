@@ -11,7 +11,7 @@ def distance(m1, m2, s1, s2):
     tot = (m1-m2)**2+(s1-s2)**2
     return round(tot**0.5,4)
 
-def step_1(print=True):
+def step_1(write=True):
     """Calculates mean and std for all people-images"""
     people = os.listdir(PATH_PEOPLE)
     people_dict = {}
@@ -38,7 +38,7 @@ def step_1(print=True):
         std = round(np.mean(std_list),4)
         people_dict[p] = (mean,std,mean_list, std_list)
 
-    if print:
+    if write:
         print("-----"*10)
         print("Step 1")
         print('{:<15s} {:<15s} {:<15s}'.format("Person", "Mean", "Standard deviation"))
@@ -48,7 +48,7 @@ def step_1(print=True):
 
     return people_dict
 
-def step_2(print=True):
+def step_2(write=True):
     """Calculates mean and std for Test images"""
     test_imgs = os.listdir(PATH_TEST)
     for i,img_name in enumerate(test_imgs):
@@ -64,7 +64,7 @@ def step_2(print=True):
         std = round(np.std(array),4)
         test_imgs[i] = (img_name,mean,std)
 
-    if print:
+    if write:
         print("-----"*10)
         print("Step 2")
         print('{:<15s} {:<15s} {:<15s}'.format("Image", "Mean", "Standard deviation"))
@@ -120,8 +120,12 @@ def plot(people):
     ax.legend()
     plt.show()
 
-if __name__ == '__main__':
-    people = step_1(print = False)
-    test_imgs = step_2(print = False)
+def main():
+    """Main function"""
+    people = step_1(write=True)
+    test_imgs = step_2(write=True)
     step_3(people, test_imgs)
     plot(people)
+
+if __name__ == '__main__':
+    main()
