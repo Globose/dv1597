@@ -122,8 +122,8 @@ def plot(people):
 
 def main():
     """Main function"""
-    people = step_1(write=True)
-    test_imgs = step_2(write=True)
+    people = step_1(write=False)
+    test_imgs = step_2(write=False)
     step_3(people, test_imgs)
     plot(people)
 
